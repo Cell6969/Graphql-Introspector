@@ -1,0 +1,102 @@
+type Account {
+	Account: BigInt!
+	accountsSimilar: [Account!]! @relationship(type: "SIMILAR", direction: IN, properties: "SimilarProperties")
+	accountsTrxTo: [Account!]! @relationship(type: "TRX_TO", direction: IN, properties: "TrxToProperties")
+	customersHasAccount: [Customer!]! @relationship(type: "HAS_ACCOUNT", direction: IN)
+	hasTrxTransactions: [Transaction!]! @relationship(type: "HAS_TRX", direction: OUT)
+	recommendToChannels: [Channel!]! @relationship(type: "RECOMMEND_TO", direction: OUT)
+	sendTransactions: [Transaction!]! @relationship(type: "SEND", direction: OUT)
+	similarAccounts: [Account!]! @relationship(type: "SIMILAR", direction: OUT, properties: "SimilarProperties")
+	transaction_score: Float!
+	transaction_segmentation: String!
+	transactionsReceive: [Transaction!]! @relationship(type: "RECEIVE", direction: IN)
+	trxToAccounts: [Account!]! @relationship(type: "TRX_TO", direction: OUT, properties: "TrxToProperties")
+	usedChannels: [Channel!]! @relationship(type: "USED", direction: OUT)
+}
+
+type Address {
+	alamat: String!
+	customersAddress: [Customer!]! @relationship(type: "ADDRESS", direction: IN)
+}
+
+type Channel {
+	Channel: String!
+	accountsRecommendTo: [Account!]! @relationship(type: "RECOMMEND_TO", direction: IN)
+	accountsUsed: [Account!]! @relationship(type: "USED", direction: IN)
+}
+
+type Customer {
+	Account: BigInt!
+	Alamat: String!
+	Cif: String!
+	Nama: String!
+	addressAddresses: [Address!]! @relationship(type: "ADDRESS", direction: OUT)
+	customer_segmentation: String!
+	customersTrxWith: [Customer!]! @relationship(type: "TRX_WITH", direction: IN, properties: "TrxWithProperties")
+	hasAccountAccounts: [Account!]! @relationship(type: "HAS_ACCOUNT", direction: OUT)
+	trxWithCustomers: [Customer!]! @relationship(type: "TRX_WITH", direction: OUT, properties: "TrxWithProperties")
+}
+
+type Merchant {
+	hasTypeMerchantTypes: [Merchant_type!]! @relationship(type: "HAS_TYPE", direction: OUT)
+	id: String!
+	name: String!
+	transactionsTo: [Transaction!]! @relationship(type: "TO", direction: IN)
+	type: String!
+}
+
+type Merchant_type {
+	merchantsHasType: [Merchant!]! @relationship(type: "HAS_TYPE", direction: IN)
+	nama: String!
+	tipe: String!
+}
+
+type Product {
+	cif: String!
+	nama: String!
+}
+
+interface SimilarProperties @relationshipProperties {
+	score: Float!
+}
+
+type Transaction {
+	Channel: String
+	Date: String
+	Transaction_desc: String
+	TransaksiId: String
+	account_to: BigInt
+	account_from: BigInt
+	accountsHasTrx: [Account!]! @relationship(type: "HAS_TRX", direction: IN)
+	accountsSend: [Account!]! @relationship(type: "SEND", direction: IN)
+	amount: String
+	category: String
+	id: String
+	merchant: String
+	merchant_type: String
+	new_Transaction_desc: String
+	new_category: String
+	nextTrxTransactions: [Transaction!]! @relationship(type: "NEXT_TRX", direction: OUT)
+	receiveAccounts: [Account!]! @relationship(type: "RECEIVE", direction: OUT)
+	toMerchants: [Merchant!]! @relationship(type: "TO", direction: OUT)
+	transactionsNextTrx: [Transaction!]! @relationship(type: "NEXT_TRX", direction: IN)
+}
+
+interface TrxToProperties @relationshipProperties {
+	amount: BigInt!
+	freq: BigInt!
+}
+
+interface TrxWithProperties @relationshipProperties {
+	amount: BigInt!
+	freq: BigInt!
+}
+
+type _Neodash_Dashboard {
+	content: String!
+	date: DateTime!
+	title: String!
+	user: String!
+	uuid: String!
+	version: String!
+}

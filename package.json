@@ -1,0 +1,22 @@
+{
+  "name": "client-side",
+  "version": "1.0.0",
+  "description": "To Test the API",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Fauzan",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/client": "^3.8.1",
+    "@neo4j/graphql": "^3.24.2",
+    "@neo4j/introspector": "^1.0.3",
+    "apollo-server": "^3.12.0",
+    "dot-env": "^0.0.1",
+    "dotenv": "^16.3.1",
+    "neo4j-driver": "^5.11.0"
+  }
+}
